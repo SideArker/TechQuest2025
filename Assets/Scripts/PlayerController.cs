@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(interactKey)&& canMove)
+        if (Input.GetKeyDown(interactKey) && canMove)
         {
             Collider2D interaction = Physics2D.OverlapCircle(transform.position, interactRadius, interactLayer);
             if (interaction == null) return;

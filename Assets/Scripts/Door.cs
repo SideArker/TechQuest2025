@@ -9,6 +9,7 @@ public class Door : Interactable
     public override void Interact()
     {
         base.Interact();
+        if (GetComponent<DialogTrigger>()) GetComponent<DialogTrigger>().StartDialog();
         if (locked) return;
         GetComponent<ChangeScreens>().ScreenChange();
     }
