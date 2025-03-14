@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void SendAction(string action)
     {
-        
+        if (!TurnManager.instance.isPlayerTurn) return;
+        if(action == "Left")
+        {
+            TurnManager.instance.selectedSide = SelectedSide.Left;
+        }
+        else TurnManager.instance.selectedSide = SelectedSide.Right;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnSigns(List<string> actions)
     {
-        
+        foreach (string action in actions)
+        {
+
+        }
     }
 }
