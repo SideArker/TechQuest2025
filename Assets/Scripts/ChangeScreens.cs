@@ -7,9 +7,7 @@ public class ChangeScreens : MonoBehaviour
 
     public void ScreenChange()
     {
-        nextScreen.SetActive(true);
-        currentScreen.SetActive(false);
+        Fader.instance.StartFader(currentScreen, nextScreen, spawnPos);
 
-        PlayerController.instance.gameObject.transform.position = spawnPos.position;
     }
 }
