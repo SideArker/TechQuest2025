@@ -12,11 +12,26 @@ public class DialogTrigger : MonoBehaviour
     [Button]
     public void StartDialog()
     {
+        PlayerInventory playerInventory = PlayerController.instance.GetComponent<PlayerInventory>();
         List<DialogProperties> dialogQueue = new List<DialogProperties>();
+        List<DialogProperties> pendingForRemove = new List<DialogProperties>();
 
         foreach (DialogProperties dialog in Dialogs)
         {
             if (dialog.InteractionReq > timesInteracted) continue;
+            if(dialog.RequiredItem != null)
+            {
+                if (playerInventory.inventory.Contains(dialog.RequiredItem))
+                {
+                    pendingForRemove.Add(dialog);
+                    continue;
+                }
+                else
+                {
+                    dialogQueue.Add(dialog);
+                    break;
+                }
+            }
             dialogQueue.Add(dialog);
         }
 
@@ -28,7 +43,13 @@ public class DialogTrigger : MonoBehaviour
 
         foreach(DialogProperties dialog in dialogQueue)
         {
-            if(dialog.OneTime) Dialogs.Remove(dialog);
+            if (dialog.OneTime) Dialogs.Remove(dialog);
+            if (dialog.RequiredItem == playerInventory.inventory.Contains(dialog.RequiredItem) && dialog.RequiredItem != null) Dialogs.Remove(dialog);
+        }
+
+        foreach(DialogProperties dialog in pendingForRemove)
+        {
+            Dialogs.Remove(dialog);
         }
     }
 }

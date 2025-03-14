@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class NPC : MonoBehaviour
+public class NPC : Interactable
 {
 
-    public void Interact()
+    public override void Interact()
     {
         GetComponent<DialogTrigger>().StartDialog();
     }

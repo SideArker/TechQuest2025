@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class containing the properties of given dialog
@@ -19,8 +21,11 @@ public class DialogProperties
     public int FontSize = 36;
     public int InteractionReq;
     public bool OneTime;
+    public Sprite Sprite;
+    public ItemSO RequiredItem;
+    public UnityEvent DialogAction;
 
-    public DialogProperties(string text, string name, Color nameColor, int fontSize = 36, bool freezeMovement = false, int interactionReq = 0, bool oneTime = false)
+    public DialogProperties(string text, string name, Color nameColor, int fontSize = 36, bool freezeMovement = false, int interactionReq = 0, bool oneTime = false, Sprite sprite = null, ItemSO requiredItem = null, UnityEvent dialogAction = null)
     {
         if (nameColor == null) nameColor = Color.white;
         NameColor = nameColor;
@@ -30,6 +35,9 @@ public class DialogProperties
         FreezeMovement = freezeMovement;
         InteractionReq = interactionReq;
         OneTime = oneTime;
+        Sprite = sprite;
+        RequiredItem = requiredItem;
+        DialogAction = dialogAction;
     }
 }
 
@@ -41,6 +49,7 @@ public class DialogSystem : MonoBehaviour
     [SerializeField] TMP_Text dialogText;
     [SerializeField] TMP_Text popup;
     [SerializeField] GameObject continueTarget;
+    [SerializeField] Image icon;
 
     [Header("Text Lerp")]
     [SerializeField] bool lerpText;
@@ -96,6 +105,9 @@ public class DialogSystem : MonoBehaviour
         dialogName.text = currentDialog.Name;
         dialogName.color = (Color)currentDialog.NameColor;
         dialogText.text = currentDialog.Text;
+
+        if(currentDialog.Sprite) icon.sprite = currentDialog.Sprite;
+        else icon.sprite = null;
         
 
         if (dialogText.text.Contains("<shake>".ToLower().Trim()))
@@ -111,12 +123,6 @@ public class DialogSystem : MonoBehaviour
 
         }
 
-        if (currentDialog.FreezeMovement)
-        {
-            // Disable player movement here
-            //Player.instance.GetComponent<Movement>().enabled = false;
-        }
-
         dialogName.transform.parent.gameObject.SetActive(true);
         continueTarget.SetActive(true);
 
@@ -128,6 +134,8 @@ public class DialogSystem : MonoBehaviour
         {
             popup.gameObject.SetActive(true);
         }
+
+        currentDialog.DialogAction.Invoke();
     }
 
 
