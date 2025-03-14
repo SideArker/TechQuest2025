@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int moveSpeed;
     public bool canMove = true;
     [SerializeField] KeyCode interactKey;
-    [SerializeField] int interactRadius = 5;
+    [SerializeField] float interactRadius = 5;
     [SerializeField] LayerMask interactLayer;
     float horizontal;
     float vertical;

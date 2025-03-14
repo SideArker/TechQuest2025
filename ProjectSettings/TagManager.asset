@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Interaction
-  - 
+  - Player
   - 
   - 
   - 
@@ -49,4 +49,13 @@ TagManager:
     locked: 0
   - name: Decorations
     uniqueID: 732158495
+    locked: 0
+  - name: Player
+    uniqueID: 887187647
+    locked: 0
+  - name: WallsFore
+    uniqueID: 2246520295
+    locked: 0
+  - name: DecorationsFore
+    uniqueID: 579720529
     locked: 0

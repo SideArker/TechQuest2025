@@ -35,6 +35,8 @@ public class DialogTrigger : MonoBehaviour
             dialogQueue.Add(dialog);
         }
 
+        if (dialogQueue.Count <= 0) return;
+
         DialogSystem.instance.StopDialog();
         DialogSystem.instance.DialogQueue.AddRange(dialogQueue);
         DialogSystem.instance.NextDialog();
