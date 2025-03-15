@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 887187647
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -120,14 +120,22 @@ MonoBehaviour:
     InteractionReq: 0
     OneTime: 1
     Sprite: {fileID: -1825931381, guid: 1201c14bb4ee74d8e99e56dc4f3f4fd1, type: 3}
+    RequiredItem: {fileID: 0}
+    DialogAction:
+      m_PersistentCalls:
+        m_Calls: []
   - Name: ???
-    Text: Why u keep talking to me?
+    Text: I need a key from you.
     NameColor: {r: 1, g: 0, b: 0, a: 1}
     FreezeMovement: 0
     FontSize: 0
     InteractionReq: 1
-    OneTime: 1
+    OneTime: 0
     Sprite: {fileID: -1825931381, guid: 1201c14bb4ee74d8e99e56dc4f3f4fd1, type: 3}
+    RequiredItem: {fileID: 11400000, guid: 35a8a20c1826d2e4b91eb08a7adb0dbd, type: 2}
+    DialogAction:
+      m_PersistentCalls:
+        m_Calls: []
   - Name: ???
     Text: Leave me alone!
     NameColor: {r: 1, g: 0, b: 0, a: 1}
@@ -136,6 +144,10 @@ MonoBehaviour:
     InteractionReq: 2
     OneTime: 0
     Sprite: {fileID: -1825931381, guid: 1201c14bb4ee74d8e99e56dc4f3f4fd1, type: 3}
+    RequiredItem: {fileID: 0}
+    DialogAction:
+      m_PersistentCalls:
+        m_Calls: []
   timesInteracted: 0
 --- !u!70 &6622586959535957479
 CapsuleCollider2D:

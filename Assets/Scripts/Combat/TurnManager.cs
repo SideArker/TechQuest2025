@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SelectedSide
 {
@@ -21,6 +22,9 @@ public class TurnManager : MonoBehaviour
     public SelectedSide selectedSide;
     public int amountOfHits = 0;
 
+    public float playerHealth = 50;
+
+
     [SerializeField] int damageForHit = 3;
 
     List<string> moves = new List<string>() { "Left", "Right", "Up", "Down", "Center" };
@@ -36,7 +40,7 @@ public class TurnManager : MonoBehaviour
 
     void BeginChoice()
     {
-        if (enemy.leftSideHealth <= 0 && enemy.rightSideHealth <= 0) WinFight();
+        if (enemy.leftSideHealth <= 0 && enemy.rightSideHealth <= 0) NextPhase();
 
         isPlayerTurn = true;
         StartCoroutine(WaitForChoice());
@@ -76,16 +80,17 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(enemy.StartDodging(selectedMoves));
     }
 
-    public void CheckIfHit(string currentMove)
+    public bool CheckIfHit(string currentMove)
     {
         if(currentMove == FightInputController.instance.currentKey)
         {
             Debug.Log("Hit!");
-            amountOfHits++;
+            return true;
         }
         else
         {
             Debug.Log("Didn't hit!");
+            return false;
         }
     }
 
@@ -100,11 +105,46 @@ public class TurnManager : MonoBehaviour
             enemy.rightSideHealth -= amountOfHits * damageForHit;
 
         }
+
+        if(selectedSide == SelectedSide.Center)
+        {
+            enemy.centerHealth -= amountOfHits * damageForHit;
+        }
+
+        amountOfHits = 0;
         isPlayerTurn = false;
+        StartCoroutine(enemy.StartAttacking());
+    }
+
+    public void DealDamageToPlayer(int damage)
+    {
+        playerHealth -= damage;
+
+        if (playerHealth <= 0) LoseFight();
+        isPlayerTurn = true;
+        selectedSide = SelectedSide.None;
+        BeginChoice();
+    }
+
+    void NextPhase()
+    {
+        playerHealth = 50;
+        enemy.dodges = 7;
+        enemy.timeBetweenDodges = .35f;
+
+        enemy.attacks = 8;
+        enemy.attackSpeed = 2f;
+        enemy.ShowCenterPiece();
     }
 
     void WinFight()
     {
+
+    }
+    void LoseFight()
+    {
+        Debug.Log("You suck!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
 

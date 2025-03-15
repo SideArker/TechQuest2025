@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
+
     public void SendAction(string action)
     {
         if (!TurnManager.instance.isPlayerTurn) return;
-        if(action == "Left")
+        if (action == "Left")
         {
             TurnManager.instance.selectedSide = SelectedSide.Left;
         }
-        else TurnManager.instance.selectedSide = SelectedSide.Right;
+        else if (action == "Right") TurnManager.instance.selectedSide = SelectedSide.Right;
+        else TurnManager.instance.selectedSide = SelectedSide.Center;
     }
 
     public void SpawnSigns(List<string> actions)
