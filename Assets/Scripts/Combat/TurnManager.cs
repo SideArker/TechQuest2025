@@ -26,6 +26,8 @@ public class TurnManager : MonoBehaviour
 
 
     [SerializeField] int damageForHit = 3;
+    [Scene]
+     public int nextScene;
 
     List<string> moves = new List<string>() { "Left", "Right", "Up", "Down", "Center" };
 
@@ -139,7 +141,7 @@ public class TurnManager : MonoBehaviour
 
     void WinFight()
     {
-
+        SceneManager.LoadScene(nextScene);
     }
     void LoseFight()
     {
