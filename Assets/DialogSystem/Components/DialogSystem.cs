@@ -59,6 +59,7 @@ public class DialogSystem : MonoBehaviour
     TextShake TextShake;
 
     public static DialogSystem instance;
+    DialogProperties currentDialog;
 
     public List<DialogProperties> DialogQueue = new List<DialogProperties>();
 
@@ -86,7 +87,6 @@ public class DialogSystem : MonoBehaviour
         StopCoroutine(DialogTextLerp(""));
         TextShake.Shake(false, "", -1);
 
-        DialogProperties currentDialog;
 
         if (DialogQueue.Count == 0)
         {
@@ -108,12 +108,12 @@ public class DialogSystem : MonoBehaviour
 
         if (currentDialog.Sprite)
         {
-            icon.gameObject.SetActive(true);
+            icon.transform.parent.gameObject.SetActive(true);
             icon.sprite = currentDialog.Sprite;
         }
         else
         {
-            icon.gameObject.SetActive(false);
+            icon.transform.parent.gameObject.SetActive(false);
             icon.sprite = null;
         }
         
@@ -143,7 +143,6 @@ public class DialogSystem : MonoBehaviour
             popup.gameObject.SetActive(true);
         }
 
-        currentDialog.DialogAction.Invoke();
     }
 
 
@@ -193,12 +192,17 @@ public class DialogSystem : MonoBehaviour
         }
         else
         {
-            if(DialogQueue.Count == 0)
+            if (DialogQueue.Count == 0)
             {
                 StopDialog();
+                currentDialog.DialogAction.Invoke();
                 PlayerController.instance.canMove = true;
             }
-            else NextDialog();
+            else
+            {
+                currentDialog.DialogAction.Invoke();
+                NextDialog();
+            }
         }
 
     }

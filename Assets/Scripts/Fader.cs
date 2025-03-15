@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fader : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class Fader : MonoBehaviour
         StartCoroutine(fade(currentRoom, nextRoom, spawnPos));
     }
 
+    public void StartFader(int sceneId)
+    {
+        StartCoroutine(fade(sceneId));
+    }
+
     IEnumerator fade(GameObject currentRoom, GameObject nextRoom, Transform spawnPos)
     {
         PlayerController.instance.canMove = false;
@@ -26,6 +32,16 @@ public class Fader : MonoBehaviour
         gameObject.LeanScale(new Vector3(0, 0, 0), .3f);
         yield return new WaitForSeconds(.35f);
         PlayerController.instance.canMove = true;
+
+    }
+
+    IEnumerator fade(int sceneId)
+    {
+        gameObject.LeanScale(new Vector3(25, 25, 25), .3f);
+        yield return new WaitForSeconds(.4f);
+        SceneManager.LoadScene(sceneId);
+        gameObject.LeanScale(new Vector3(0, 0, 0), .3f);
+        yield break;
 
     }
 }
