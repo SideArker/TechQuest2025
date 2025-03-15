@@ -5078,6 +5078,7 @@ MonoBehaviour:
   amountOfHits: 0
   playerHealth: 50
   damageForHit: 3
+  nextScene: 4
 --- !u!4 &2127286978
 Transform:
   m_ObjectHideFlags: 0

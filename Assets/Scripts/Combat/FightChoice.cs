@@ -43,6 +43,11 @@ public class FightChoice : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         }
     }
 
+    private void Update()
+    {
+        UpdateText();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!interactable && !TurnManager.instance.isPlayerTurn) return;

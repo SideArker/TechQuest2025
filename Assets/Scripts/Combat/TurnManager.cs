@@ -111,6 +111,8 @@ public class TurnManager : MonoBehaviour
         if(selectedSide == SelectedSide.Center)
         {
             enemy.centerHealth -= amountOfHits * damageForHit;
+
+            if (enemy.centerHealth <= 0) WinFight();
         }
 
         amountOfHits = 0;
