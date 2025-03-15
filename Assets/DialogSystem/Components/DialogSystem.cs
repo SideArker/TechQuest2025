@@ -106,8 +106,16 @@ public class DialogSystem : MonoBehaviour
         dialogName.color = (Color)currentDialog.NameColor;
         dialogText.text = currentDialog.Text;
 
-        if(currentDialog.Sprite) icon.sprite = currentDialog.Sprite;
-        else icon.sprite = null;
+        if (currentDialog.Sprite)
+        {
+            icon.gameObject.SetActive(true);
+            icon.sprite = currentDialog.Sprite;
+        }
+        else
+        {
+            icon.gameObject.SetActive(false);
+            icon.sprite = null;
+        }
         
 
         if (dialogText.text.Contains("<shake>".ToLower().Trim()))

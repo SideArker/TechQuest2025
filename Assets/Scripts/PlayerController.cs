@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections.Editor.Data;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
@@ -16,11 +17,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] KeyCode interactKey;
     [SerializeField] float interactRadius = 5;
     [SerializeField] LayerMask interactLayer;
-    float horizontal;
-    float vertical;
+
 
     Rigidbody2D rb;
     Animator anim;
+
+    Vector2 movement;
 
     private void Awake()
     {
@@ -35,8 +37,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        anim.SetFloat("Horizontal", movement.x);
+        anim.SetFloat("Vertical", movement.y);
+
+        Debug.Log(movement.sqrMagnitude);
+        anim.SetFloat("Speed", movement.sqrMagnitude);
+
 
         if (Input.GetKeyDown(interactKey) && canMove)
         {
@@ -51,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-            Vector2 movement = new Vector2(horizontal, vertical).normalized;
+            movement = movement.normalized;
             rb.velocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed) * Time.fixedDeltaTime;
         } else rb.velocity = Vector2.zero;
 

@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class ZoneInfo : MonoBehaviour
 {
+    public static ZoneInfo instance;
     [SerializeField] TMP_Text zoneText;
     Vector3 startPos = Vector3.zero;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         startPos = transform.position;
